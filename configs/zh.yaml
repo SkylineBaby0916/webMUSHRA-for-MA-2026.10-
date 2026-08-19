@@ -1,0 +1,383 @@
+testname: "小提琴音色主觀評估"
+testId: "violin_eval"
+googleSheetUrl: "https://script.google.com/macros/s/AKfycbzxS9pqipviqMsf7ccHHsmSZcNT8rIUywbTOlWKufJielMkcoXitLUObQoQnzEC54yb/exec"
+stopOnErrors: false
+bufferSize: 8192
+showButtonPreviousPage: true
+
+pages:
+  # ============================================================================
+  # 1. 歡迎與評分規則說明頁
+  # ============================================================================
+  - type: generic
+    id: intro
+    name: "小提琴音色主觀評估"
+    content: |
+      <div style="max-width: 1150px; margin: 0 auto; line-height: 1.85; font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif;">
+        
+        <p style="font-size: 1.2em; color: #222; margin: 15px 0 25px 0;">
+          <b>感謝您撥冗參與測試</b><br>
+          本問卷使用 <b>webMUSHRA</b> 框架，以評估小提琴不同音色下的主觀感受，耗時約 <b>5~10 分鐘</b>。<br>
+          評估結果僅作為研究用途，並嚴格遵守《九州大学研究データ管理・公開実施要領》。
+        </p>
+
+        <!-- Introduction 區塊 -->
+        <div style="background-color: #f8f9fa; border-radius: 6px; padding: 22px 28px; margin: 22px 0; border: 1px solid #e9ecef; box-shadow: 0 1px 3px rgba(0,0,0,0.03);">
+          <h3 style="margin-top: 0; margin-bottom: 16px; color: #0d47a1; font-size: 1.4em; font-weight: bold;">【Introduction】</h3>
+          <ul style="margin-bottom: 0; padding-left: 24px; color: #222; font-size: 1.15em;">
+            <li style="margin-bottom: 10px;">本問卷共有 <b>3 首曲目</b>，分別評估 <b>(1) 特性指標</b> 與 <b>(2) 真實度指標</b>。</li>
+            <li style="margin-bottom: 10px;">每頁皆提供 <b>左側 1 個參考音檔 (Reference)</b> 與 <b>右側 5 個測試音檔</b>；請先試聽參考音檔（各項指標皆以其為 <b>0 分</b> 基準）。</li>
+            <li>請反覆比較測試音檔與參考音檔間的差異，並給予評分：
+              <ul style="list-style-type: circle; margin-top: 8px; margin-bottom: 6px; padding-left: 26px; color: #333;">
+                <li style="margin-bottom: 6px;"><b>+1 ~ +50</b>（優於參考音檔）</li>
+                <li style="margin-bottom: 6px;"><b>0</b>（與參考音檔無差異）</li>
+                <li><b>-1 ~ -50</b>（劣於參考音檔）</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Notice 區塊 -->
+        <div style="background-color: #fffdf5; border-radius: 6px; padding: 22px 28px; margin: 22px 0; border: 1px solid #faeac7; box-shadow: 0 1px 3px rgba(0,0,0,0.03);">
+          <h3 style="margin-top: 0; margin-bottom: 16px; color: #856404; font-size: 1.4em; font-weight: bold;">【Notice】</h3>
+          <ul style="margin-bottom: 0; padding-left: 24px; color: #333; font-size: 1.15em;">
+            <li style="margin-bottom: 8px;">請準備穩定的收聽環境，並配備耳機。</li>
+            <li style="margin-bottom: 8px;">測試期間請維持音量恆定以確保測試品質。</li>
+            <li>請仔細閱讀每頁的指導語，並相信自己的聽覺。</li>
+          </ul>
+        </div>
+
+        <p style="text-align: center; margin-top: 35px; font-size: 1.25em; font-weight: bold; color: #222;">
+          再次謝謝您參與測試
+        </p>
+
+      </div>
+
+  # ============================================================================
+  # 2. 暖身練習階段 (Training Phase - 操作說明)
+  # ============================================================================
+  - type: generic
+    id: training_intro
+    name: "操作說明"
+    content: |
+      <div style="max-width: 1150px; margin: 0 auto; line-height: 1.85; font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif;">
+        
+        <!-- Guide 區塊 -->
+        <div style="background-color: #f4fbf6; border-radius: 6px; padding: 22px 28px; margin: 20px 0 25px 0; border: 1px solid #d4edda; box-shadow: 0 1px 3px rgba(0,0,0,0.03);">
+          <h3 style="margin-top: 0; margin-bottom: 16px; color: #1e7e34; font-size: 1.4em; font-weight: bold;">【Guide】</h3>
+          <ul style="margin-bottom: 0; padding-left: 24px; color: #222; font-size: 1.15em;">
+            <li style="margin-bottom: 10px;">點擊左側 <b>Reference</b> 聆聽參考音檔</li>
+            <li style="margin-bottom: 10px;">點擊 <b>Cond 1~5</b> 無間隔切換不同測試音檔</li>
+            <li>嘗試拉動滑桿為正在播放的音檔評分</li>
+          </ul>
+        </div>
+
+        <!-- 教學圖片 (100% 寬度切齊) -->
+        <div style="text-align: center; margin: 25px 0 20px 0;">
+          <img src="configs/resources/images/training_zh.png" style="width: 100%; max-width: 100%; height: auto; display: block; border: 1px solid #ddd; border-radius: 6px; box-shadow: 0 2px 10px rgba(0,0,0,0.06);" alt="操作教學示意圖" />
+        </div>
+
+        <!-- 置底備註說明 -->
+        <p style="text-align: center; margin-top: 25px; font-size: 1.15em; color: #555; font-weight: bold;">
+          <b>（下一頁為操作練習，不計入結果）</b>
+        </p>
+
+      </div>
+
+  # ============================================================================
+  # 3. 暖身練習評分頁
+  # ============================================================================
+  - type: mushra
+    id: training_trial
+    name: "操作練習"
+    content: "<span style='font-size: 1.15em; font-weight: bold; color: #333;'>請熟悉操作後，前往下一頁開始正式測試</span>"
+    reference: "configs/resources/audio/mono_ref.wav"
+    groupId: training
+    must_play_reference: true
+    scale:
+      min: -50
+      max: 50
+      default: 0
+      labels:
+        - { val: 50, label: "明顯更佳" }
+        - { val: 25, label: "相對更佳" }
+        - { val: 0, label: "無明顯差異" }
+        - { val: -25, label: "相對更差" }
+        - { val: -50, label: "明顯更差" }
+    stimuli:
+      C1: "configs/resources/audio/mono_c1.wav"
+      C2: "configs/resources/audio/mono_c2.wav"
+      C3: "configs/resources/audio/mono_c3.wav"
+
+  # ============================================================================
+  # Chapter 1: 流浪者之歌 (Sarasate) - 酒紅色主題 (#800020)
+  # ============================================================================
+  # 第 4 頁：1-1 低音的飽滿度評估
+  - type: mushra
+    id: sarasate_warmth
+    name: "曲目一：低音的飽滿度評估"
+    showButtonPreviousPage: false
+    content: "<span style='font-size: 1.12em; line-height: 1.8; color: #222;'>請針對低音的<b>【飽滿度、渾厚感】</b>進行評分，<b>-1~-50</b>（飽滿度低於參考音檔）、<b>0</b>（飽滿度與參考音檔無明顯差異）、<b>+1~+50</b>（飽滿度高於參考音檔）</span>"
+    reference: "configs/resources/audio/S_original.wav"
+    groupId: sarasate
+    themeColor: "#800020"
+    must_play_reference: true
+    scale:
+      min: -50
+      max: 50
+      default: 0
+      labels:
+        - { val: 50, label: "明顯更為飽滿" }
+        - { val: 25, label: "相對更為飽滿" }
+        - { val: 0, label: "無明顯差異" }
+        - { val: -25, label: "相對更不飽滿" }
+        - { val: -50, label: "明顯更不飽滿" }
+    stimuli:
+      gha_with_res: "configs/resources/audio/S_titian_with_res.wav"
+      gha_no_res: "configs/resources/audio/S_titian_no_res.wav"
+      inv_filter: "configs/resources/audio/S_inv_filter.wav"
+      low_anchor: "configs/resources/audio/S_low_anchor.wav"
+
+  # 第 5 頁：1-2 低音的真實度評估
+  - type: mushra
+    id: sarasate_realism
+    name: "曲目一：低音的真實度評估"
+    showButtonPreviousPage: false
+    content: "<span style='font-size: 1.12em; line-height: 1.8; color: #222;'>請針對低音的<b>【真實度、自然感】</b>進行評分，<b>-1~-50</b>（真實度低於參考音檔）、<b>0</b>（真實度與參考音檔無明顯差異）、<b>+1~+50</b>（真實度高於參考音檔）</span>"
+    reference: "configs/resources/audio/S_original.wav"
+    groupId: sarasate
+    themeColor: "#800020"
+    must_play_reference: true
+    scale:
+      min: -50
+      max: 50
+      default: 0
+      labels:
+        - { val: 50, label: "明顯更為真實" }
+        - { val: 25, label: "相對更為真實" }
+        - { val: 0, label: "無明顯差異" }
+        - { val: -25, label: "相對更不真實" }
+        - { val: -50, label: "明顯更不真實" }
+    stimuli:
+      gha_with_res: "configs/resources/audio/S_titian_with_res.wav"
+      gha_no_res: "configs/resources/audio/S_titian_no_res.wav"
+      inv_filter: "configs/resources/audio/S_inv_filter.wav"
+      low_anchor: "configs/resources/audio/S_low_anchor.wav"
+
+  # ============================================================================
+  # Chapter 2: 孟德爾頌協奏曲 (Mendelssohn) - 深藍色主題 (#0d47a1)
+  # ============================================================================
+  # 第 6 頁：2-1 中高音的明亮度評估
+  - type: mushra
+    id: mendelssohn_brightness
+    name: "曲目二：中高音的明亮度評估"
+    showButtonPreviousPage: false
+    content: "<span style='font-size: 1.12em; line-height: 1.8; color: #222;'>請針對中高音的<b>【明亮度、穿透感】</b>進行評分，<b>-1~-50</b>（明亮度低於參考音檔）、<b>0</b>（明亮度與參考音檔無明顯差異）、<b>+1~+50</b>（明亮度高於參考音檔）</span>"
+    reference: "configs/resources/audio/M_original.wav"
+    groupId: mendelssohn
+    themeColor: "#0d47a1"
+    must_play_reference: true
+    scale:
+      min: -50
+      max: 50
+      default: 0
+      labels:
+        - { val: 50, label: "明顯更為明亮" }
+        - { val: 25, label: "相對更為明亮" }
+        - { val: 0, label: "無明顯差異" }
+        - { val: -25, label: "相對更不明亮" }
+        - { val: -50, label: "明顯更不明亮" }
+    stimuli:
+      gha_with_res: "configs/resources/audio/M_titian_with_res.wav"
+      gha_no_res: "configs/resources/audio/M_titian_no_res.wav"
+      inv_filter: "configs/resources/audio/M_inv_filter.wav"
+      low_anchor: "configs/resources/audio/M_low_anchor.wav"
+
+  # 第 7 頁：2-2 中高音的真實度評估
+  - type: mushra
+    id: mendelssohn_realism
+    name: "曲目二：中高音的真實度評估"
+    showButtonPreviousPage: false
+    content: "<span style='font-size: 1.12em; line-height: 1.8; color: #222;'>請針對中高音的<b>【真實度、自然感】</b>進行評分，<b>-1~-50</b>（真實度低於參考音檔）、<b>0</b>（真實度與參考音檔無明顯差異）、<b>+1~+50</b>（真實度高於參考音檔）</span>"
+    reference: "configs/resources/audio/M_original.wav"
+    groupId: mendelssohn
+    themeColor: "#0d47a1"
+    must_play_reference: true
+    scale:
+      min: -50
+      max: 50
+      default: 0
+      labels:
+        - { val: 50, label: "明顯更為真實" }
+        - { val: 25, label: "相對更為真實" }
+        - { val: 0, label: "無明顯差異" }
+        - { val: -25, label: "相對更不真實" }
+        - { val: -50, label: "明顯更不真實" }
+    stimuli:
+      gha_with_res: "configs/resources/audio/M_titian_with_res.wav"
+      gha_no_res: "configs/resources/audio/M_titian_no_res.wav"
+      inv_filter: "configs/resources/audio/M_inv_filter.wav"
+      low_anchor: "configs/resources/audio/M_low_anchor.wav"
+
+  # ============================================================================
+  # Chapter 3: 莫札特迴旋曲 (Kreisler/Mozart) - 墨綠色主題 (#1b5e20)
+  # ============================================================================
+  # 第 8 頁：3-1 跳弓的清晰度評估
+  - type: mushra
+    id: kreisler_clarity
+    name: "曲目三：跳弓的清晰度評估"
+    showButtonPreviousPage: false
+    content: "<span style='font-size: 1.12em; line-height: 1.8; color: #222;'>請針對跳弓的<b>【清晰度、顆粒感】</b>進行評分，<b>-1~-50</b>（清晰度低於參考音檔）、<b>0</b>（清晰度與參考音檔無明顯差異）、<b>+1~+50</b>（清晰度高於參考音檔）</span>"
+    reference: "configs/resources/audio/K_original.wav"
+    groupId: kreisler
+    themeColor: "#1b5e20"
+    must_play_reference: true
+    scale:
+      min: -50
+      max: 50
+      default: 0
+      labels:
+        - { val: 50, label: "明顯更為清晰" }
+        - { val: 25, label: "相對更為清晰" }
+        - { val: 0, label: "無明顯差異" }
+        - { val: -25, label: "相對更不清晰" }
+        - { val: -50, label: "明顯更不清晰" }
+    stimuli:
+      gha_with_res: "configs/resources/audio/K_titian_with_res.wav"
+      gha_no_res: "configs/resources/audio/K_titian_no_res.wav"
+      inv_filter: "configs/resources/audio/K_inv_filter.wav"
+      low_anchor: "configs/resources/audio/K_low_anchor.wav"
+
+  # 第 9 頁：3-2 跳弓的真實度評估
+  - type: mushra
+    id: kreisler_realism
+    name: "曲目三：跳弓的真實度評估"
+    showButtonPreviousPage: false
+    content: "<span style='font-size: 1.12em; line-height: 1.8; color: #222;'>請針對跳弓的<b>【真實度、自然感】</b>進行評分，<b>-1~-50</b>（真實度低於參考音檔）、<b>0</b>（真實度與參考音檔無明顯差異）、<b>+1~+50</b>（真實度高於參考音檔）</span>"
+    reference: "configs/resources/audio/K_original.wav"
+    groupId: kreisler
+    themeColor: "#1b5e20"
+    must_play_reference: true
+    scale:
+      min: -50
+      max: 50
+      default: 0
+      labels:
+        - { val: 50, label: "明顯更為真實" }
+        - { val: 25, label: "相對更為真實" }
+        - { val: 0, label: "無明顯差異" }
+        - { val: -25, label: "相對更不真實" }
+        - { val: -50, label: "明顯更不真實" }
+    stimuli:
+      gha_with_res: "configs/resources/audio/K_titian_with_res.wav"
+      gha_no_res: "configs/resources/audio/K_titian_no_res.wav"
+      inv_filter: "configs/resources/audio/K_inv_filter.wav"
+      low_anchor: "configs/resources/audio/K_low_anchor.wav"
+
+  # ============================================================================
+  # 4. 音樂背景調查頁
+  # ============================================================================
+  - type: generic
+    id: background_survey
+    name: "音樂背景調查"
+    showButtonPreviousPage: false
+    buttonNextText: "Send Results"
+    content: |
+      <div style="max-width: 1150px; margin: 0 auto; line-height: 1.85; font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif;">
+        <div style="background-color: #f8f9fa; border-radius: 6px; padding: 24px 30px; margin: 20px 0; border: 1px solid #e9ecef; box-shadow: 0 1px 3px rgba(0,0,0,0.03); text-align: left;">
+          
+          
+          <!-- Q1 題目區塊 -->
+          <div style="margin-bottom: 28px; font-size: 1.15em; color: #222;">
+            <p style="font-weight: bold; margin-bottom: 12px; color: #111;">
+              Q1：您的音樂背景最符合下列何者？
+            </p>
+            <div style="padding-left: 10px;">
+              <label style="display: block; margin-bottom: 10px; cursor: pointer; line-height: 1.6;">
+                <input type="radio" name="bg_q1" value="A" style="margin-right: 8px; transform: scale(1.2);"> 
+                <b>A.</b> 我幾乎沒有接觸過古典樂
+              </label>
+              <label style="display: block; margin-bottom: 10px; cursor: pointer; line-height: 1.6;">
+                <input type="radio" name="bg_q1" value="B" style="margin-right: 8px; transform: scale(1.2);"> 
+                <b>B.</b> 我有持續接觸古典樂（如聽音樂會、參與古典樂活動等），但我不會演奏任何樂器
+              </label>
+              <label style="display: block; margin-bottom: 10px; cursor: pointer; line-height: 1.6;">
+                <input type="radio" name="bg_q1" value="C" style="margin-right: 8px; transform: scale(1.2);"> 
+                <b>C.</b> 我有演奏 / 學習樂器的經驗，但不是弦樂器
+              </label>
+              <label style="display: block; margin-bottom: 6px; cursor: pointer; line-height: 1.6;">
+                <input type="radio" name="bg_q1" value="D" style="margin-right: 8px; transform: scale(1.2);"> 
+                <b>D.</b> 我有演奏 / 學習樂器的經驗，而且是弦樂器（如小提琴、中提琴、大提琴、低音大提琴）
+              </label>
+            </div>
+          </div>
+
+          <hr style="border: 0; border-top: 1px solid #e0e0e0; margin: 24px 0;">
+
+          <!-- Q2 題目區塊 -->
+          <div style="margin-bottom: 28px; font-size: 1.15em; color: #222;">
+            <p style="font-weight: bold; margin-bottom: 12px; color: #111;">
+              Q2：承上題，您的樂器演奏 / 學習經驗大約幾年呢？
+            </p>
+            <div style="padding-left: 10px;">
+              <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                <input type="radio" name="bg_q2" value="none" style="margin-right: 8px; transform: scale(1.2);"> 
+                <b>A.</b> 無經驗
+              </label>
+              <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                <input type="radio" name="bg_q2" value="0-5" style="margin-right: 8px; transform: scale(1.2);"> 
+                <b>B.</b> 0 ~ 5 年
+              </label>
+              <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                <input type="radio" name="bg_q2" value="6-10" style="margin-right: 8px; transform: scale(1.2);"> 
+                <b>C.</b> 6 ~ 10 年
+              </label>
+              <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                <input type="radio" name="bg_q2" value="11-15" style="margin-right: 8px; transform: scale(1.2);"> 
+                <b>D.</b> 11 ~ 15 年
+              </label>
+              <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                <input type="radio" name="bg_q2" value="16-20" style="margin-right: 8px; transform: scale(1.2);"> 
+                <b>E.</b> 16 ~ 20 年
+              </label>
+              <label style="display: block; margin-bottom: 6px; cursor: pointer;">
+                <input type="radio" name="bg_q2" value="20+" style="margin-right: 8px; transform: scale(1.2);"> 
+                <b>F.</b> 20 年以上
+              </label>
+            </div>
+          </div>
+
+          <hr style="border: 0; border-top: 1px solid #e0e0e0; margin: 24px 0;">
+
+          <!-- Q3 題目區塊 (填空題) -->
+          <div style="margin-bottom: 10px; font-size: 1.15em; color: #222;">
+            <p style="font-weight: bold; margin-bottom: 12px; color: #111;">
+              Q3：請填入一個最能代表您的機關 / 團體，【音樂相關】的優先（如 OO交響樂團、OO大學OO科系等），若不願透露則填【無】：
+            </p>
+            <div style="padding-left: 10px; margin-top: 10px;">
+              <input type="text" name="bg_q3" style="width: 100%; max-width: 650px; font-size: 1.05em; padding: 10px 14px; border: 1px solid #ccc; border-radius: 5px; outline: none; box-sizing: border-box;" />
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+  # ============================================================================
+  # 5. 結束與結果送出頁 (死者蘇生)
+  # ============================================================================
+  - type: finish
+    id: finish_page
+    name: " "
+    showButtonPreviousPage: false
+    content: |
+      <div style="max-width: 950px; margin: 30px auto 30px auto; text-align: center; font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif;">
+        <h2 style="color: #1a2a3a; font-size: 2.2em; font-weight: bold; margin-bottom: 6px; line-height: 1.2; letter-spacing: 0.5px;">
+          感謝您的熱心填寫
+        </h2>
+        <p style="font-size: 1.35em; color: #2d3748; margin-top: 6px; margin-bottom: 22px; font-weight: bold; line-height: 1.3;">
+          您的貢獻，使我的研究能再苟活一天
+        </p>
+        <div style="margin-top: 10px; display: inline-block;">
+          <img src="configs/resources/images/sisyasosei.jpg" style="max-width: 360px; width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 18px rgba(0,0,0,0.18);" alt="死者蘇生" />
+        </div>
+      </div>
